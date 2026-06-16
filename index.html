@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Julia Pereira | Cybersecurity Analyst & Penetration Tester</title>
+    <meta name="description" content="Portfolio of a cybersecurity analyst specializing in API penetration testing and secure payment gateway integrations.">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fontsource: Space Grotesk & JetBrains Mono -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/space-grotesk@5.0.18/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.18/index.css">
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            dark: '#05050a',
+                            navy: '#0a0a14',
+                            green: '#00ff9d',
+                            blue: '#00f0ff',
+                            pink: '#ff0055',
+                            gray: '#1a1a24'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #05050a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00ff9d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f0ff;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            color: #ffffff;
+        }
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff0055;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00f0ff;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(10px, 9999px, 30px, 0); }
+            20% { clip: rect(80px, 9999px, 100px, 0); }
+            40% { clip: rect(10px, 9999px, 50px, 0); }
+            60% { clip: rect(60px, 9999px, 80px, 0); }
+            80% { clip: rect(30px, 9999px, 70px, 0); }
+            100% { clip: rect(90px, 9999px, 110px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(60px, 9999px, 80px, 0); }
+            20% { clip: rect(10px, 9999px, 30px, 0); }
+            40% { clip: rect(90px, 9999px, 110px, 0); }
+            60% { clip: rect(30px, 9999px, 50px, 0); }
+            80% { clip: rect(70px, 9999px, 90px, 0); }
+            100% { clip: rect(20px, 9999px, 40px, 0); }
+        }
+
+        /* Neon Glow Utilities */
+        .glow-green {
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.5), 0 0 20px rgba(0, 255, 157, 0.3);
+        }
+        .glow-blue {
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.5), 0 0 20px rgba(0, 240, 255, 0.3);
+        }
+        .glow-pink {
+            box-shadow: 0 0 10px rgba(255, 0, 85, 0.5), 0 0 20px rgba(255, 0, 85, 0.3);
+        }
+        .text-glow-green {
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.8);
+        }
+
+        /* Terminal Styles */
+        .terminal-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background-color: #00ff9d;
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Scanline Overlay */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body class="bg-cyber-dark text-gray-200 font-sans antialiased overflow-x-hidden">
+
+    <!-- Scanline Overlay for retro-tech feel -->
+    <div class="scanlines"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 top-0 transition-all duration-300 bg-cyber-dark/80 backdrop-blur-md border-b border-cyber-green/20" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#" class="font-mono text-xl font-bold text-cyber-green tracking-wider">
+                        &lt;Julia.Pereira /&gt;
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="hover:text-cyber-green transition-colors duration-300 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="#expertise" class="hover:text-cyber-green transition-colors duration-300 px-3 py-2 rounded-md text-sm font-medium">Expertise</a>
+                        <a href="#projects" class="hover:text-cyber-green transition-colors duration-300 px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                        <a href="#terminal" class="hover:text-cyber-green transition-colors duration-300 px-3 py-2 rounded-md text-sm font-medium">Terminal</a>
+                        <a href="#contact" class="bg-cyber-green/10 border border-cyber-green text-cyber-green hover:bg-cyber-green hover:text-cyber-dark transition-all duration-300 px-4 py-2 rounded-md text-sm font-mono font-bold">Contact</a>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" id="mobileMenuBtn" class="inline-flex items-center justify-center p-2 rounded-md text-cyber-green hover:text-white hover:bg-cyber-gray focus:outline-none">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-cyber-navy border-b border-cyber-green/20" id="mobileMenu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-cyber-green">Home</a>
+                <a href="#expertise" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-cyber-green">Expertise</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-cyber-green">Projects</a>
+                <a href="#terminal" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-cyber-green">Terminal</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-cyber-green">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://image.qwenlm.ai/public_source/1b1c2339-6a49-4c52-bc13-59063950d0e2/175499d6c-5597-4aa8-b48a-7c3d1f289a60.png" alt="Cybersecurity Background" class="w-full h-full object-cover opacity-30">
+            <div class="absolute inset-0 bg-gradient-to-b from-cyber-dark/80 via-cyber-dark/90 to-cyber-dark"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-block mb-4 px-4 py-1 rounded-full border border-cyber-blue/50 bg-cyber-blue/10 backdrop-blur-sm">
+                <span class="font-mono text-cyber-blue text-sm tracking-widest uppercase">System Status: Secure</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
+                <span class="glitch" data-text="JULIA PEREIRA">JULIA PEREIRA</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-400 mb-8 max-w-3xl mx-auto font-light">
+                Cybersecurity Analyst & Penetration Tester specializing in 
+                <span class="text-cyber-green font-semibold">API Security</span>, 
+                <span class="text-cyber-blue font-semibold">Payment Gateways</span>, and 
+                <span class="text-cyber-pink font-semibold">Vulnerability Assessment</span>.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#projects" class="group relative px-8 py-3 bg-cyber-green text-cyber-dark font-mono font-bold rounded-md overflow-hidden transition-all hover:scale-105 glow-green">
+                    <span class="relative z-10">View Operations</span>
+                    <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                </a>
+                <a href="#contact" class="px-8 py-3 border border-cyber-pink text-cyber-pink font-mono font-bold rounded-md hover:bg-cyber-pink hover:text-white transition-all hover:scale-105 glow-pink">
+                    Initiate Contact
+                </a>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <svg class="w-6 h-6 text-cyber-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="py-24 bg-cyber-navy relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Core <span class="text-cyber-green text-glow-green">Expertise</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Identifying vulnerabilities before malicious actors do. Specialized in securing critical digital infrastructure.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative bg-cyber-gray/50 border border-cyber-green/20 rounded-xl p-8 hover:border-cyber-green transition-all duration-500 hover:-translate-y-2 backdrop-blur-sm">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyber-green to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-14 h-14 bg-cyber-green/10 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-cyber-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 font-mono">Cybersecurity Analysis</h3>
+                    <p class="text-gray-400 leading-relaxed">Comprehensive threat modeling, risk assessment, and security architecture reviews for enterprise-grade applications.</p>
+                    <div class="mt-6 flex flex-wrap gap-2">
+                        <span class="text-xs font-mono px-2 py-1 bg-cyber-green/10 text-cyber-green rounded">OWASP</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-cyber-green/10 text-cyber-green rounded">NIST</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-cyber-green/10 text-cyber-green rounded">Threat Modeling</span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative bg-cyber-gray/50 border border-cyber-blue/20 rounded-xl p-8 hover:border-cyber-blue transition-all duration-500 hover:-translate-y-2 backdrop-blur-sm">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyber-blue to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-14 h-14 bg-cyber-blue/10 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-cyber-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 font-mono">API Penetration Testing</h3>
+                    <p class="text-gray-400 leading-relaxed">Deep-dive security testing for RESTful and GraphQL APIs. Identifying IDOR, BOLA, mass assignment, and injection flaws.</p>
+                    <div class="mt-6 flex flex-wrap gap-2">
+                        <span class="text-xs font-mono px-2 py-1 bg-cyber-blue/10 text-cyber-blue rounded">Burp Suite</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-cyber-blue/10 text-cyber-blue rounded">Postman</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-cyber-blue/10 text-cyber-blue rounded">GraphQL</span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative bg-cyber-gray/50 border border-cyber-pink/20 rounded-xl p-8 hover:border-cyber-pink transition-all duration-500 hover:-translate-y-2 backdrop-blur-sm">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyber-pink to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-14 h-14 bg-cyber-pink/10 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-cyber-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 font-mono">Payment Gateway Security</h3>
+                    <p class="text-gray-400 leading-relaxed">PCI-DSS compliant integration auditing. Securing Stripe, PayPal, and custom payment flows against fraud and data breaches.</p>
+                    <div class="mt-6 flex flex-wrap gap-2">
+                        <span class="text-xs font-mono px-2 py-1 bg-cyber-pink/10 text-cyber-pink rounded">PCI-DSS</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-cyber-pink/10 text-cyber-pink rounded">Stripe</span>
+                        <span class="text-xs font-mono px-2 py-1 bg-cyber-pink/10 text-cyber-pink rounded">Tokenization</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 bg-cyber-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Recent <span class="text-cyber-blue text-glow-green" style="text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);">Operations</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Selected case studies and security audits.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <div class="bg-cyber-navy border border-cyber-gray rounded-xl overflow-hidden hover:border-cyber-green/50 transition-all duration-300 group">
+                    <div class="h-48 bg-gradient-to-br from-cyber-green/20 to-cyber-blue/20 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMGZmOWQiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMCAwaDQwdjQwSDB6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
+                        <span class="font-mono text-4xl font-bold text-cyber-green opacity-80 group-hover:scale-110 transition-transform">API_v2.0</span>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-white">FinTech API Security Audit</h3>
+                            <span class="text-xs font-mono text-cyber-green bg-cyber-green/10 px-2 py-1 rounded">Critical</span>
+                        </div>
+                        <p class="text-gray-400 mb-6 text-sm">Identified and remediated 14 critical vulnerabilities in a high-volume financial API, including BOLA and rate-limiting bypasses.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs font-mono text-gray-300 border border-gray-700 px-2 py-1 rounded">OAuth2</span>
+                            <span class="text-xs font-mono text-gray-300 border border-gray-700 px-2 py-1 rounded">JWT</span>
+                            <span class="text-xs font-mono text-gray-300 border border-gray-700 px-2 py-1 rounded">Node.js</span>
+                        </div>
+                        <a href="#" class="inline-flex items-center text-cyber-green font-mono text-sm hover:underline">
+                            View Case Study 
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="bg-cyber-navy border border-cyber-gray rounded-xl overflow-hidden hover:border-cyber-pink/50 transition-all duration-300 group">
+                    <div class="h-48 bg-gradient-to-br from-cyber-pink/20 to-cyber-blue/20 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZjAwNTUiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMCAwaDQwdjQwSDB6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
+                        <span class="font-mono text-4xl font-bold text-cyber-pink opacity-80 group-hover:scale-110 transition-transform">PAY_SEC</span>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-white">E-Commerce Payment Hardening</h3>
+                            <span class="text-xs font-mono text-cyber-pink bg-cyber-pink/10 px-2 py-1 rounded">High</span>
+                        </div>
+                        <p class="text-gray-400 mb-6 text-sm">Secured a custom Stripe integration against card testing attacks and implemented robust webhook signature verification.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs font-mono text-gray-300 border border-gray-700 px-2 py-1 rounded">Stripe API</span>
+                            <span class="text-xs font-mono text-gray-300 border border-gray-700 px-2 py-1 rounded">PCI-DSS</span>
+                            <span class="text-xs font-mono text-gray-300 border border-gray-700 px-2 py-1 rounded">Python</span>
+                        </div>
+                        <a href="#" class="inline-flex items-center text-cyber-pink font-mono text-sm hover:underline">
+                            View Case Study 
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Terminal Section -->
+    <section id="terminal" class="py-24 bg-cyber-navy relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Interactive <span class="text-cyber-green text-glow-green">Terminal</span></h2>
+                <p class="text-gray-400">Type <span class="font-mono text-cyber-green">help</span> to see available commands.</p>
+            </div>
+
+            <div class="bg-black/80 border border-cyber-green/30 rounded-lg overflow-hidden shadow-2xl glow-green backdrop-blur-sm">
+                <!-- Terminal Header -->
+                <div class="bg-cyber-gray/50 px-4 py-2 flex items-center justify-between border-b border-cyber-green/20">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-cyber-pink"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-cyber-green"></div>
+                    </div>
+                    <span class="font-mono text-xs text-gray-400">julia@pereira:~</span>
+                </div>
+                <!-- Terminal Body -->
+                <div class="p-6 h-96 overflow-y-auto font-mono text-sm" id="terminalOutput">
+                    <div class="text-cyber-green mb-2">Welcome to Julia Pereira's secure shell v2.6.0</div>
+                    <div class="text-gray-400 mb-4">Type 'help' to list available commands.</div>
+                </div>
+                <!-- Terminal Input -->
+                <div class="px-6 pb-6 flex items-center">
+                    <span class="text-cyber-green mr-2 font-mono">➜</span>
+                    <span class="text-cyber-blue mr-2 font-mono">~</span>
+                    <input type="text" id="terminalInput" class="flex-1 bg-transparent text-white outline-none font-mono" autocomplete="off" spellcheck="false" autofocus>
+                    <span class="terminal-cursor"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-cyber-dark relative">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Establish <span class="text-cyber-pink" style="text-shadow: 0 0 10px rgba(255, 0, 85, 0.8);">Secure Connection</span></h2>
+                <p class="text-gray-400">Ready to secure your infrastructure? Send an encrypted message.</p>
+            </div>
+
+            <div class="bg-cyber-navy border border-cyber-gray rounded-xl p-8 md:p-12 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-cyber-pink/10 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 w-32 h-32 bg-cyber-green/10 rounded-full blur-3xl"></div>
+                
+                <form id="contactForm" class="relative z-10 space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-mono text-cyber-green mb-2">IDENTIFIER (Name)</label>
+                            <input type="text" id="name" required class="w-full bg-cyber-dark border border-cyber-gray rounded-md px-4 py-3 text-white focus:border-cyber-green focus:outline-none focus:ring-1 focus:ring-cyber-green transition-colors font-mono" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-mono text-cyber-green mb-2">COMM CHANNEL (Email)</label>
+                            <input type="email" id="email" required class="w-full bg-cyber-dark border border-cyber-gray rounded-md px-4 py-3 text-white focus:border-cyber-green focus:outline-none focus:ring-1 focus:ring-cyber-green transition-colors font-mono" placeholder="john@company.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="subject" class="block text-sm font-mono text-cyber-green mb-2">SUBJECT LINE</label>
+                        <input type="text" id="subject" required class="w-full bg-cyber-dark border border-cyber-gray rounded-md px-4 py-3 text-white focus:border-cyber-green focus:outline-none focus:ring-1 focus:ring-cyber-green transition-colors font-mono" placeholder="Security Audit Request">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-mono text-cyber-green mb-2">PAYLOAD (Message)</label>
+                        <textarea id="message" rows="5" required class="w-full bg-cyber-dark border border-cyber-gray rounded-md px-4 py-3 text-white focus:border-cyber-green focus:outline-none focus:ring-1 focus:ring-cyber-green transition-colors font-mono resize-none" placeholder="Describe your security requirements..."></textarea>
+                    </div>
+                    
+                    <button type="submit" id="submitBtn" class="w-full bg-cyber-green text-cyber-dark font-mono font-bold py-4 rounded-md hover:bg-cyber-blue transition-colors duration-300 flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        <span id="btnText">TRANSMIT SECURELY</span>
+                    </button>
+                </form>
+
+                <!-- Success Message (Hidden by default) -->
+                <div id="successMessage" class="hidden relative z-10 text-center py-12">
+                    <div class="w-16 h-16 bg-cyber-green/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-cyber-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 font-mono">TRANSMISSION SUCCESSFUL</h3>
+                    <p class="text-gray-400">Your encrypted payload has been received. I will respond via secure channel shortly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-cyber-navy border-t border-cyber-gray py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="font-mono text-xl font-bold text-cyber-green">&lt;Julia.Pereira /&gt;</span>
+                    <p class="text-gray-500 text-sm mt-1">Securing the digital frontier.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-cyber-green transition-colors">
+                        <span class="sr-only">GitHub</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-cyber-blue transition-colors">
+                        <span class="sr-only">LinkedIn</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"></path></svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-cyber-pink transition-colors">
+                        <span class="sr-only">Twitter</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-cyber-gray text-center text-gray-500 text-sm font-mono">
+                &copy; 2026 Julia Pereira. All systems operational.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // ==========================================
+        // MOBILE MENU TOGGLE
+        // ==========================================
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // ==========================================
+        // INTERACTIVE TERMINAL LOGIC
+        // ==========================================
+        const terminalInput = document.getElementById('terminalInput');
+        const terminalOutput = document.getElementById('terminalOutput');
+
+        const commandHistory = [];
+        let historyIndex = -1;
+
+        const commands = {
+            help: () => `
+Available commands:
+  <span class="text-cyber-green">help</span>       - Show this help message
+  <span class="text-cyber-green">whoami</span>     - Display analyst profile
+  <span class="text-cyber-green">skills</span>     - List technical skills
+  <span class="text-cyber-green">projects</span>   - View recent operations
+  <span class="text-cyber-green">contact</span>    - Get contact information
+  <span class="text-cyber-green">clear</span>      - Clear terminal screen
+  <span class="text-cyber-green">scan</span>       - Run mock security scan
+            `.trim(),
+            
+            whoami: () => `
+<span class="text-cyber-blue">Name:</span> Julia Pereira
+<span class="text-cyber-blue">Role:</span> Senior Cybersecurity Analyst & Penetration Tester
+<span class="text-cyber-blue">Location:</span> Remote / Global
+<span class="text-cyber-blue">Status:</span> Available for contract and full-time roles
+<span class="text-cyber-blue">Focus:</span> API Security, Payment Gateways, Cloud Security
+            `.trim(),
+
+            skills: () => `
+<span class="text-cyber-pink">[ Offensive Security ]</span>
+  • Penetration Testing (Web, API, Mobile)
+  • Vulnerability Assessment
+  • Red Team Operations
+  • Exploit Development
+
+<span class="text-cyber-pink">[ Defensive Security ]</span>
+  • Threat Modeling
+  • Security Architecture Review
+  • Incident Response
+  • SIEM Configuration
+
+<span class="text-cyber-pink">[ Tools & Technologies ]</span>
+  • Burp Suite Pro, OWASP ZAP, Nmap, Metasploit
+  • Python, Bash, JavaScript, Go
+  • AWS, Azure, GCP Security
+  • Docker, Kubernetes Security
+            `.trim(),
+
+            projects: () => `
+<span class="text-cyber-green">1. FinTech API Security Audit</span>
+   Identified 14 critical vulnerabilities in a high-volume financial API.
+   
+<span class="text-cyber-green">2. E-Commerce Payment Hardening</span>
+   Secured custom Stripe integration against card testing attacks.
+   
+<span class="text-cyber-green">3. Cloud Infrastructure Pentest</span>
+   Full AWS environment assessment for a SaaS startup.
+
+Type 'projects --details' for more info (mock).
+            `.trim(),
+
+            contact: () => `
+<span class="text-cyber-blue">Email:</span> julia@pereira-sec.dev
+<span class="text-cyber-blue">GitHub:</span> github.com/juliapereira
+<span class="text-cyber-blue">LinkedIn:</span> linkedin.com/in/juliapereira
+<span class="text-cyber-blue">PGP Key:</span> 0x4A2B8C9D1E3F5A6B
+
+Or scroll down to the contact form to send a secure message.
+            `.trim(),
+
+            clear: () => {
+                terminalOutput.innerHTML = '';
+                return null;
+            },
+
+            scan: () => {
+                return `<span class="text-yellow-400">Initiating mock security scan...</span>
+<span class="text-gray-400">[+] Scanning ports...</span>
+<span class="text-gray-400">[+] Checking for known vulnerabilities...</span>
+<span class="text-gray-400">[+] Analyzing API endpoints...</span>
+<span class="text-cyber-green">[✓] Scan complete. 0 critical vulnerabilities found in this portfolio.</span>
+<span class="text-cyber-blue">[i] Note: This is a simulated output for demonstration purposes.</span>`;
+            }
+        };
+
+        function appendToTerminal(htmlContent, isCommand = false) {
+            const div = document.createElement('div');
+            div.className = 'mb-2';
+            if (isCommand) {
+                div.innerHTML = `<span class="text-cyber-green">➜</span> <span class="text-cyber-blue">~</span> <span class="text-white">${htmlContent}</span>`;
+            } else {
+                div.innerHTML = htmlContent;
+            }
+            terminalOutput.appendChild(div);
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const inputVal = terminalInput.value.trim().toLowerCase();
+                
+                if (inputVal) {
+                    commandHistory.push(inputVal);
+                    historyIndex = commandHistory.length;
+                    appendToTerminal(inputVal, true);
+
+                    if (commands[inputVal]) {
+                        const result = commands[inputVal]();
+                        if (result !== null) {
+                            appendToTerminal(result);
+                        }
+                    } else if (inputVal === 'projects --details') {
+                        appendToTerminal(`<span class="text-gray-400">Detailed project reports are available upon request via secure channel.</span>`);
+                    } else {
+                        appendToTerminal(`<span class="text-cyber-pink">Command not found: ${inputVal}. Type 'help' for available commands.</span>`);
+                    }
+                }
+                terminalInput.value = '';
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    terminalInput.value = commandHistory[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    terminalInput.value = commandHistory[historyIndex];
+                } else {
+                    historyIndex = commandHistory.length;
+                    terminalInput.value = '';
+                }
+            }
+        });
+
+        // Keep focus on terminal input when clicking inside the terminal area
+        document.querySelector('#terminal .bg-black\\/80').addEventListener('click', () => {
+            terminalInput.focus();
+        });
+
+        // ==========================================
+        // SECURE CONTACT FORM SIMULATION
+        // ==========================================
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const successMessage = document.getElementById('successMessage');
+
+        /**
+         * Input Sanitization Function
+         * Prevents basic XSS by escaping HTML characters.
+         * In a real backend, this would be handled server-side.
+         */
+        function sanitizeInput(inputStr) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return inputStr.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+            btnText.textContent = 'ENCRYPTING PAYLOAD...';
+
+            // Simulate secure backend processing steps
+            const steps = [
+                'HASHING DATA...',
+                'ESTABLISHING TLS 1.3...',
+                'VERIFYING SIGNATURE...',
+                'TRANSMITTING...'
+            ];
+
+            for (let step of steps) {
+                btnText.textContent = step;
+                await new Promise(resolve => setTimeout(resolve, 600));
+            }
+
+            // Simulate successful API response
+            // In production, this would be a fetch() call to your backend endpoint
+            // Example: await fetch('/api/contact', { method: 'POST', body: JSON.stringify(formData) });
+            
+            contactForm.style.display = 'none';
+            successMessage.classList.remove('hidden');
+        });
+
+        // ==========================================
+        // NAVBAR SCROLL EFFECT
+        // ==========================================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg', 'shadow-cyber-green/5');
+            } else {
+                navbar.classList.remove('shadow-lg', 'shadow-cyber-green/5');
+            }
+        });
+
+        // ==========================================
+        // SMOOTH REVEAL ANIMATION ON SCROLL
+        // ==========================================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div').forEach(el => {
+            el.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+            observer.observe(el);
+        });
+
+    </script>
+</body>
+</html>
+
